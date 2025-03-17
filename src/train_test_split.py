@@ -24,16 +24,23 @@ def parse_arguments():
 
 
 
+def create_dataset(base_dir, dataset):
+    def create_structure(dir, label, data_points, pbar):
+        sub_dir = os.path.join(dir, label)
+        os.makedirs(sub_dir, exist_ok=True)
+        for point in data_points:
+            image = plt.imread(point)
+            img_name = Path(point).name
+            img_dir = os.path.join(sub_dir, img_name)
+            plt.imsave(arr=image, fname=img_dir)
+            pbar.update(1)
 
-
-
-
-
-
-
-
-
-
+    for split, data in dataset.items():
+        dir = os.path.join(base_dir, split)
+        for label, data_points in data.items():
+            with tqdm(total=len(data_points), desc=f"{split} images for {label}", unit="image", leave=False) as pbar:
+                create_structure(dir, label, data_points, pbar)
+        print(f"{split} files saved at {dir}")
 
 
 def main():
