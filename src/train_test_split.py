@@ -54,18 +54,23 @@ def main():
         indices = np.arange(data_size)
         np.random.shuffle(indices)
 
-                                                            train_idxs = indices[:train_size]
-                                                                val_idxs = indices[train_size:train_size + val_size]
-                                                                    test_idxs = indices[train_size + val_size:]
+        train_idxs = indices[:train_size]
+        val_idxs = indices[train_size:train_size + val_size]
+        test_idxs = indices[train_size + val_size:]
 
-                                                                        train_cswk, train_ncswk = crosswalks[train_idxs], not_crosswalks[train_idxs]
-                                                                            val_cswk, val_ncswk = crosswalks[val_idxs], not_crosswalks[val_idxs]
-                                                                                test_cswk, test_ncswk = crosswalks[test_idxs], not_crosswalks[test_idxs]
+        train_cswk, train_ncswk = crosswalks[train_idxs], not_crosswalks[train_idxs]
+        val_cswk, val_ncswk = crosswalks[val_idxs], not_crosswalks[val_idxs]
+        test_cswk, test_ncswk = crosswalks[test_idxs], not_crosswalks[test_idxs]
 
-                                                                                    train = {"crosswalk": train_cswk, "not_crosswalk": train_ncswk}
-                                                                                        val = {"crosswalk": val_cswk, "not_crosswalk": val_ncswk}
-                                                                                            test = {"crosswalk": test_cswk, "not_crosswalk": test_ncswk}
+        train = {"crosswalk": train_cswk, "not_crosswalk": train_ncswk}
+        val = {"crosswalk": val_cswk, "not_crosswalk": val_ncswk}
+        test = {"crosswalk": test_cswk, "not_crosswalk": test_ncswk}
 
-                                                                                                dataset = {"train": train, "validation": val, "test": test}
+        dataset = {"train": train, "validation": val, "test": test}
 
-                                                                                                    create_dataset(OUTPUT_DIR, dataset)
+        create_dataset(OUTPUT_DIR, dataset)
+
+
+
+if __name__ == "__main__":
+    main()
